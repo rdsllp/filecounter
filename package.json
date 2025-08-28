@@ -1,0 +1,126 @@
+{
+  "name": "filecounter",
+  "displayName": "FileCounter",
+  "description": "Display nunber of files in folder inside sidebar",
+  "version": "0.0.1",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "FileCounter",
+      "properties": {
+        "filecounter.ignorePatterns": {
+          "type": "array",
+          "default": [
+            ".git",
+            ".svn",
+            ".hg",
+            "node_modules",
+            "dist",
+            "out",
+            "build",
+            ".vscode",
+            ".idea",
+            "target",
+            "bin",
+            "obj",
+            "*.tmp",
+            "*.log"
+          ],
+          "description": "Array of glob patterns to ignore when counting files",
+          "items": {
+            "type": "string"
+          }
+        },
+        "filecounter.respectGitignore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to respect .gitignore files when counting files"
+        },
+        "filecounter.includeHiddenFiles": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to include hidden files (files starting with .) in the count"
+        },
+        "filecounter.countSubfolders": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to include files in subfolders when counting"
+        },
+        "filecounter.showZeroCounts": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to show folders with zero files"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "filecounter.refresh",
+        "title": "Refresh File Counts",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "filecounter.toggle",
+        "title": "Toggle File Counter",
+        "icon": "$(eye)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "filecounter.refresh",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "filecounter.refresh",
+          "title": "FileCounter: Refresh File Counts"
+        },
+        {
+          "command": "filecounter.toggle",
+          "title": "FileCounter: Toggle File Counter"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.102.0",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.32.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "ignore": "^7.0.5"
+  }
+}
