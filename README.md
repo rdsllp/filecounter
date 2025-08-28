@@ -11,6 +11,9 @@ A VS Code extension that displays the number of files in each folder directly in
 - 👁️ Toggle on/off functionality
 - 🎛️ Comprehensive configuration options
 
+![Preview](./assets/screenshot_1.png)
+![Preview](./assets/screenshot_2.png)
+
 ## Configuration
 
 The extension provides several configuration options that can be customized in your VS Code settings:
